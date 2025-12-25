@@ -295,7 +295,8 @@
                     <img src="img/mem4.png">
                     <div class="memory-text">
                         <h3>ครั้งแรกที่เล่นกับเธอ</h3>
-                        <p>เป็นอมพมที่ไม่เคยรู้จักเลยแต่รู้จักเพราะเธอ แอบเข้าไปแคปรูปไว้55เบลอมาก แถมไม่คิดว่าจะเห็นเค้า</p>
+                        <p>เป็นอมพมที่ไม่เคยรู้จักเลยแต่รู้จักเพราะเธอ แอบเข้าไปแคปรูปไว้55เบลอมาก
+                            แถมไม่คิดว่าจะเห็นเค้า</p>
                     </div>
                 </div>
             </div>
@@ -319,6 +320,45 @@
         function goMenu() {
             window.location.href = "menu.html";
         }
+    </script>
+
+    <script>
+        function createSnow() {
+            const snow = document.createElement("div");
+            snow.classList.add("snow");
+            snow.innerHTML = ["❄", "❅", "❆"][Math.floor(Math.random() * 3)];
+
+            snow.style.left = Math.random() * window.innerWidth + "px";
+            snow.style.fontSize = Math.random() * 10 + 10 + "px";
+            snow.style.animationDuration = Math.random() * 3 + 4 + "s";
+            snow.style.opacity = Math.random();
+
+            document.body.appendChild(snow);
+
+            setTimeout(() => {
+                snow.remove();
+            }, 8000);
+        }
+
+        setInterval(createSnow, 300);
+    </script>
+
+
+    <audio id="bgm" src="audio/christmas-440431.mp3" loop></audio>
+
+    <script>
+        const bgm = document.getElementById("bgm");
+        bgm.volume = 0.3;
+
+        if (localStorage.getItem("bgmPlayed")) {
+            bgm.play().catch(() => { });
+        }
+
+        document.addEventListener("click", () => {
+            bgm.play().then(() => {
+                localStorage.setItem("bgmPlayed", "true");
+            }).catch(() => { });
+        }, { once: true });
     </script>
 
 </body>
