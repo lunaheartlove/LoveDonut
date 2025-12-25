@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memories</title>
+
+    <!-- ฟอนต์ Mali -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(#D85564, white);
+            font-family: 'Mali', cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ⛄ Snowman */
+        .snowman {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 260px;
+            opacity: 0.5;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* กล่องหลัก */
+        .memory-wrapper {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 16px;
+            background: #fff;
+            border-radius: 30px;
+            padding: 30px 24px 26px;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+            max-height: 85vh;
+            overflow-y: auto;
+            z-index: 2;
+        }
+
+        /* หัวข้อ */
+        .title {
+            text-align: center;
+            font-size: 1.6rem;
+            color: #D85564;
+            margin-bottom: 30px;
+        }
+
+        /* timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* การ์ด */
+        .memory-card {
+            text-align: center;
+        }
+
+        /* กล่องเนื้อหา */
+        .memory-content {
+            background: #FFF6F8;
+            border-radius: 24px;
+            padding: 20px 16px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* รูป */
+        .memory-content img {
+            width: 300px;
+            height: 300px;
+            max-width: 100%;
+            border-radius: 28px;
+            object-fit: cover;
+        }
+
+        /* ข้อความ */
+        .memory-text h3 {
+            margin: 6px 0 0;
+            font-size: 1.15rem;
+            color: #D85564;
+        }
+
+        .memory-text p {
+            margin: 6px 0 0;
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* เส้นปะแบ่ง */
+        .memory-card::after {
+            content: "";
+            display: block;
+            width: 60%;
+            margin: 36px auto 0;
+            border-bottom: 2px dashed #F3AFC1;
+        }
+
+        .memory-card:last-child::after {
+            display: none;
+        }
+
+        /* ปุ่มกลับ */
+        .menu-btn {
+            margin-top: 34px;
+            padding: 10px 28px;
+            font-size: 0.95rem;
+            border: none;
+            border-radius: 30px;
+            background: #F85151;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            font-family: 'Mali', cursive;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* หิมะ */
+        .snow {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            user-select: none;
+            pointer-events: none;
+            z-index: 3;
+            animation: fall linear;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh);
+                opacity: 0.3;
+            }
+        }
+
+        /* =======================
+           📱 max-width: 360px
+        ======================= */
+        @media (max-width: 360px) {
+            body {
+                align-items: flex-start;
+                padding: 20px 0;
+            }
+
+            .memory-wrapper {
+                padding: 22px 18px;
+                border-radius: 24px;
+            }
+
+            .title {
+                font-size: 1.4rem;
+            }
+
+            .memory-content img {
+                width: 220px;
+                height: 220px;
+            }
+        }
+
+        /* 📱 361px–480px */
+        @media (min-width: 361px) and (max-width: 480px) {
+            body {
+                align-items: flex-start;
+                padding: 24px 0;
+            }
+
+            .snowman {
+                width: 160px;
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .memory-content img {
+                width: 240px;
+                height: 240px;
+            }
+        }
+
+        /* 📱 481px–599px */
+        @media (min-width: 481px) and (max-width: 599px) {
+            .memory-content img {
+                width: 260px;
+                height: 260px;
+            }
+        }
+
+        /* 💻 600px–1024px */
+        @media (min-width: 600px) and (max-width: 1024px) {
+            .memory-wrapper {
+                max-width: 540px;
+            }
+        }
+
+        /* 📱 Landscape มือถือ */
+        @media (orientation: landscape) and (max-height: 420px) {
+            body {
+                align-items: flex-start;
+                padding: 16px 0;
+            }
+
+            .memory-wrapper {
+                max-height: 90vh;
+            }
+        }
+
+        /* ♿ ลด motion */
+        @media (prefers-reduced-motion: reduce) {
+            .snow {
+                animation: none;
+            }
+
+            .menu-btn:hover {
+                transform: none;
+            }
+        }
+
+        /* 🖥 Desktop ใหญ่ */
+        @media (min-width: 1025px) {
+            .memory-wrapper {
+                max-width: 620px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <img src="img/snow.png" alt="Snowman" class="snowman">
+
+    <div class="memory-wrapper">
+
+        <div class="title">ความทรงจำของเรา</div>
+
+        <div class="timeline">
+
+            <div class="memory-card">
+                <div class="memory-content">
+                    <img src="img/mem1.png">
+                    <div class="memory-text">
+                        <h3>จุดเริ่มต้นของเราสองคน</h3>
+                        <p>เป็นวันแรกที่เริ่มคุยกันเพราะเธอหาเพื่อน</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="memory-card">
+                <div class="memory-content">
+                    <img src="img/image01.png">
+                    <div class="memory-text">
+                        <h3>เพลงแรกที่เธอลงถึงเค้า</h3>
+                        <p>เค้าได้ฟังละชอบมากๆ เพราะมากเลย</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="memory-card">
+                <div class="memory-content">
+                    <img src="img/image03.png">
+                    <div class="memory-text">
+                        <h3>ครั้งแรกที่เธอแชร์จอเล่นเกมส์ให้ดู</h3>
+                        <p>จริงๆเป็นครั้ง2แต่ครั้งแรกไม่ได้แคปไว้เศร้างจัง!!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="memory-card">
+                <div class="memory-content">
+                    <img src="img/mem4.png">
+                    <div class="memory-text">
+                        <h3>ครั้งแรกที่เล่นกับเธอ</h3>
+                        <p>เป็นอมพมที่ไม่เคยรู้จักเลยแต่รู้จักเพราะเธอ แอบเข้าไปแคปรูปไว้55เบลอมาก แถมไม่คิดว่าจะเห็นเค้า</p>
+                    </div>
+                </div>
+            </div>
+            <div class="memory-card">
+                <div class="memory-content">
+                    <img src="img/mem5.png">
+                    <div class="memory-text">
+                        <h3>คาสายยแบบยาวๆๆ</h3>
+                        <p>เป็นการคาสายที่นานมาก มีความสุขสุดๆๆ</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="menu-btn" onclick="goMenu()">กลับไปหน้าเมนู</button>
+
+    </div>
+
+    <script>
+        function goMenu() {
+            window.location.href = "menu.html";
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Wish</title>
+
+    <!-- ฟอนต์ Mali -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(#D85564, white);
+            font-family: 'Mali', cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ☃️ Snowman */
+        .snowman {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 240px;
+            opacity: 0.45;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* การ์ดหลัก */
+        .wish-card {
+            background: #fff;
+            width: 100%;
+            max-width: 520px;
+            margin: 0 16px;
+            padding: 28px 22px 26px;
+            border-radius: 30px;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+            text-align: center;
+            z-index: 1;
+        }
+
+        .title {
+            font-size: 1.55rem;
+            color: #D85564;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #777;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* ถุงเท้า */
+        .stocking {
+            width: 150px;
+            max-width: 100%;
+            margin: 0 auto 18px;
+            display: block;
+            opacity: 0.9;
+        }
+
+        /* textarea */
+        textarea {
+            width: 100%;
+            max-width: 100%;
+            min-height: 120px;
+            border-radius: 20px;
+            border: 2px dashed #F3AFC1;
+            padding: 14px 16px;
+            font-family: 'Mali', cursive;
+            font-size: 0.95rem;
+            resize: none;
+            outline: none;
+        }
+
+        textarea::placeholder {
+            color: #aaa;
+        }
+
+        /* ปุ่ม */
+        .btn {
+            margin-top: 18px;
+            padding: 10px 30px;
+            font-size: 0.95rem;
+            border: none;
+            border-radius: 30px;
+            background: #F85151;
+            color: white;
+            cursor: pointer;
+            transition: transform .25s ease;
+            font-family: 'Mali', cursive;
+            max-width: 100%;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* ข้อความหลังบันทึก */
+        .saved-text {
+            display: none;
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #D85564;
+            line-height: 1.6;
+        }
+
+        /* หิมะตก */
+        .snow {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            user-select: none;
+            pointer-events: none;
+            z-index: 3;
+            animation: fall linear;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(100vh);
+                opacity: 0.3;
+            }
+        }
+
+        /* 📱 มือถือ */
+        @media (max-width: 480px) {
+            .snowman {
+                width: 160px;
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .title {
+                font-size: 1.4rem;
+            }
+
+            .stocking {
+                width: 130px;
+            }
+
+            textarea {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ===== Popup Overlay ===== */
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .popup-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .popup-box {
+            background: #fff;
+            padding: 26px 22px;
+            border-radius: 26px;
+            text-align: center;
+            max-width: 320px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+
+            transform: scale(0.8);
+            transition: transform 0.35s ease;
+        }
+
+        .popup-overlay.show .popup-box {
+            transform: scale(1);
+        }
+
+        .popup-box p {
+            font-size: 1rem;
+            color: #D85564;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        /* overlay มืดด้านหลัง */
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* กล่อง popup */
+        .popup-box {
+            background: #fff;
+            width: 90%;
+            max-width: 360px;
+            padding: 26px 22px 24px;
+            border-radius: 26px;
+            text-align: center;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25);
+            animation: pop 0.4s ease;
+        }
+
+        /* รูปซานต้า */
+        .popup-santa {
+            width: 110px;
+            margin: 0 auto 12px;
+            display: block;
+        }
+
+        /* ข้อความ */
+        .popup-text {
+            font-size: 1rem;
+            color: #D85564;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        /* animation เด้ง */
+        @keyframes pop {
+            0% {
+                transform: scale(0.85);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ===============================
+   📱 มือถือเล็กมาก (≤360px)
+   =============================== */
+        @media (max-width: 360px) {
+            .wish-card {
+                padding: 22px 18px;
+            }
+
+            .title {
+                font-size: 1.3rem;
+            }
+
+            .subtitle {
+                font-size: 0.85rem;
+            }
+
+            .stocking {
+                width: 120px;
+            }
+
+            textarea {
+                min-height: 100px;
+                font-size: 0.85rem;
+            }
+
+            .btn {
+                padding: 9px 22px;
+                font-size: 0.85rem;
+            }
+
+            .popup-box {
+                padding: 22px 18px;
+            }
+
+            .popup-santa {
+                width: 90px;
+            }
+        }
+
+        /* ===============================
+   📱 มือถือทั่วไป (361–480px)
+   =============================== */
+        @media (min-width: 361px) and (max-width: 480px) {
+            .wish-card {
+                padding: 26px 20px;
+            }
+
+            .stocking {
+                width: 130px;
+            }
+
+            .popup-santa {
+                width: 100px;
+            }
+        }
+
+        /* ===============================
+   📱 จอเล็ก–แท็บเล็ตเล็ก (481–599px)
+   =============================== */
+        @media (min-width: 481px) and (max-width: 599px) {
+            .wish-card {
+                max-width: 480px;
+            }
+
+            .popup-box {
+                max-width: 340px;
+            }
+        }
+
+        /* ===============================
+   📱 แท็บเล็ต (600–1024px)
+   =============================== */
+        @media (min-width: 600px) and (max-width: 1024px) {
+            .wish-card {
+                max-width: 520px;
+            }
+
+            .title {
+                font-size: 1.6rem;
+            }
+
+            .popup-box {
+                max-width: 360px;
+            }
+        }
+
+        /* ===============================
+   📱 แนวนอน (มือถือหมุนจอ)
+   =============================== */
+        @media (orientation: landscape) and (max-height: 420px) {
+            body {
+                align-items: flex-start;
+                padding: 16px 0;
+            }
+
+            .snowman {
+                width: 140px;
+                opacity: 0.3;
+            }
+
+            .stocking {
+                width: 110px;
+            }
+
+            textarea {
+                min-height: 90px;
+            }
+        }
+
+        /* ===============================
+   ♿ ลด motion (Accessibility)
+   =============================== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* ===============================
+   💻 Desktop ใหญ่ (≥1025px)
+   =============================== */
+        @media (min-width: 1025px) {
+            .wish-card {
+                max-width: 560px;
+            }
+
+            .popup-box {
+                max-width: 380px;
+            }
+
+            .popup-santa {
+                width: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ☃️ Snowman -->
+    <img src="img/snow.png" alt="Snowman" class="snowman">
+
+    <div class="wish-card">
+
+        <div class="title">คำขอวันคริสต์มาส</div>
+        <div class="subtitle">
+            ซานต้าบอกว่า…ถุงเท้านี้ยังว่างอยู่<br>ลองเขียนคำขอใส่เข้าไปในถุงเท้าดูสิ
+        </div>
+
+        <img src="img/sock.png" alt="stocking" class="stocking">
+
+        <textarea id="wishInput" placeholder="เขียนคำขอของเธอไว้ตรงนี้..."></textarea>
+
+        <button class="btn" id="saveBtn" onclick="saveWish()">เก็บคำขอไว้กับซานต้า</button>
+
+    </div>
+
+    <script>
+        function saveWish() {
+            const wish = document.getElementById("wishInput").value.trim();
+            if (!wish) return;
+
+            localStorage.setItem("christmasWish", wish);
+
+            document.getElementById("wishInput").style.display = "none";
+            document.getElementById("saveBtn").style.display = "none";
+        }
+
+        function goMenu() {
+            window.location.href = "menu.html";
+        }
+
+        function createSnow() {
+            const snow = document.createElement("div");
+            snow.classList.add("snow");
+            snow.innerHTML = ["❄", "❅", "❆"][Math.floor(Math.random() * 3)];
+
+            snow.style.left = Math.random() * window.innerWidth + "px";
+            snow.style.fontSize = Math.random() * 10 + 10 + "px";
+            snow.style.animationDuration = Math.random() * 3 + 4 + "s";
+
+            document.body.appendChild(snow);
+            setTimeout(() => snow.remove(), 8000);
+        }
+
+        setInterval(createSnow, 300);
+    </script>
+
+    <script>
+        function saveWish() {
+            const wish = document.getElementById("wishInput").value.trim();
+            if (!wish) return;
+
+            localStorage.setItem("christmasWish", wish);
+
+            document.getElementById("wishInput").style.display = "none";
+            document.getElementById("saveBtn").style.display = "none";
+
+            document.getElementById("popup").classList.add("show");
+        }
+
+        function goMenu() {
+            window.location.href = "menu.html";
+        }
+    </script>
+
+
+    <div class="popup-overlay" id="popup">
+        <div class="popup-box">
+            <img src="img/santa.png" alt="Santa" class="popup-santa">
+
+            <p class="popup-text">
+                ซานต้าอ่านคำขอแล้วนะ
+            </p>
+
+            <button class="btn" onclick="goMenu()">ไปหน้าเมนู</button>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

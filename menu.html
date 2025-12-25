@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Day!</title>
+
+    <!-- ฟอนต์ Mali -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(#D85564, white);
+            /* ❗ คงเดิม */
+            font-family: 'Mali', cursive;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ===== ต้นคริสต์มาส ===== */
+        .tree {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            opacity: 0.45;
+            z-index: 1;
+        }
+
+        /* ===== wrapper ===== */
+        .wrapper {
+            z-index: 2;
+            text-align: center;
+        }
+
+        /* ===== หัวข้อ ===== */
+        .title {
+            font-size: 1.8rem;
+            color: #2E7D32;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.7rem;
+            color: white;
+            margin-bottom: 30px;
+            font-weight: 900;
+            -webkit-text-stroke: 0.3px black;
+        }
+
+        /* ===== grid เมนู ===== */
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 26px;
+        }
+
+        /* ===== การ์ดเมนู ===== */
+        .menu-item {
+            width: 190px;
+            height: 190px;
+            background: #F85151;
+            border-radius: 32px;
+            padding: 28px 20px;
+            text-decoration: none;
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            box-shadow: 0 12px 30px rgba(10, 170, 74, 0.35);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 38px rgba(10, 170, 74, 0.45);
+        }
+
+        .menu-item img {
+            width: 90px;
+            height: 90px;
+            pointer-events: none;
+        }
+
+        .menu-item p {
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        /* ===== หิมะตก ===== */
+        .snow {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            user-select: none;
+            pointer-events: none;
+            z-index: 3;
+            animation-name: fall;
+            animation-timing-function: linear;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh);
+                opacity: 0.3;
+            }
+        }
+
+        /* ===============================
+   📱 มือถือเล็กมาก (≤360px)
+   =============================== */
+        @media (max-width: 360px) {
+            .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .menu-container {
+                gap: 16px;
+            }
+
+            .menu-item {
+                width: 140px;
+                height: 140px;
+                padding: 18px 14px;
+                border-radius: 24px;
+            }
+
+            .menu-item img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .menu-item p {
+                font-size: 0.85rem;
+            }
+
+            .tree {
+                width: 420px;
+            }
+        }
+
+        /* ===============================
+   📱 มือถือทั่วไป (361–480px)
+   =============================== */
+        @media (min-width: 361px) and (max-width: 480px) {
+            .menu-container {
+                gap: 20px;
+            }
+
+            .menu-item {
+                width: 160px;
+                height: 160px;
+            }
+
+            .menu-item img {
+                width: 70px;
+                height: 70px;
+            }
+
+            .subtitle {
+                font-size: 1.4rem;
+            }
+
+            .tree {
+                width: 500px;
+            }
+        }
+
+        /* ===============================
+   📱 จอเล็ก–แท็บเล็ตเล็ก (481–599px)
+   =============================== */
+        @media (min-width: 481px) and (max-width: 599px) {
+            .menu-item {
+                width: 170px;
+                height: 170px;
+            }
+
+            .menu-item img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .tree {
+                width: 580px;
+            }
+        }
+
+        /* ===============================
+   📱 แท็บเล็ต (600–1024px)
+   =============================== */
+        @media (min-width: 600px) and (max-width: 1024px) {
+            .menu-item {
+                width: 180px;
+                height: 180px;
+            }
+
+            .subtitle {
+                font-size: 1.6rem;
+            }
+
+            .tree {
+                width: 650px;
+            }
+        }
+
+        /* ===============================
+   📱 แนวนอน (มือถือหมุนจอ)
+   =============================== */
+        @media (orientation: landscape) and (max-height: 420px) {
+            body {
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 18px;
+            }
+
+            .menu-container {
+                gap: 16px;
+            }
+
+            .menu-item {
+                width: 140px;
+                height: 140px;
+            }
+
+            .tree {
+                width: 420px;
+                opacity: 0.3;
+            }
+        }
+
+        /* ===============================
+   ♿ ลด motion (Accessibility)
+   =============================== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* ===============================
+   💻 Desktop ใหญ่ (≥1025px)
+   =============================== */
+        @media (min-width: 1025px) {
+            .menu-container {
+                gap: 30px;
+            }
+
+            .menu-item {
+                width: 200px;
+                height: 200px;
+            }
+
+            .menu-item img {
+                width: 95px;
+                height: 95px;
+            }
+
+            .subtitle {
+                font-size: 1.8rem;
+            }
+
+            .tree {
+                width: 720px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <img src="img/cmt2.png" alt="Christmas Tree" class="tree">
+
+    <div class="wrapper">
+        <div class="subtitle">เลือกเมนูที่อยากเปิด</div>
+
+        <div class="menu-container">
+            <a href="tree.html" class="menu-item">
+                <img src="img/4.png" alt="">
+                <p>แต่งต้นคริสต์มาส</p>
+            </a>
+
+            <a href="letter.html" class="menu-item">
+                <img src="img/3.png" alt="">
+                <p>จดหมาย<br>ถึงคนน่ารัก</p>
+            </a>
+
+            <a href="pictrue.html" class="menu-item">
+                <img src="img/5.png" alt="">
+                <p>รูปคนน่ารัก</p>
+            </a>
+
+            <a href="memory.html" class="menu-item">
+                <img src="img/6.png" alt="">
+                <p>ความทรงจำ</p>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function createSnow() {
+            const snow = document.createElement("div");
+            snow.classList.add("snow");
+            snow.innerHTML = ["❄", "❅", "❆"][Math.floor(Math.random() * 3)];
+
+            snow.style.left = Math.random() * window.innerWidth + "px";
+            snow.style.fontSize = Math.random() * 10 + 10 + "px";
+            snow.style.animationDuration = Math.random() * 3 + 4 + "s";
+            snow.style.opacity = Math.random();
+
+            document.body.appendChild(snow);
+
+            setTimeout(() => {
+                snow.remove();
+            }, 8000);
+        }
+
+        setInterval(createSnow, 300);
+    </script>
+
+
+    <audio id="bgm" src="audio/christmas-440431.mp3" loop></audio>
+
+    <script>
+        const bgm = document.getElementById("bgm");
+        bgm.volume = 0.3;
+
+        if (localStorage.getItem("bgmPlayed")) {
+            bgm.play().catch(() => { });
+        }
+
+        document.addEventListener("click", () => {
+            bgm.play().then(() => {
+                localStorage.setItem("bgmPlayed", "true");
+            }).catch(() => { });
+        }, { once: true });
+    </script>
+
+
+</body>
+
+</html>

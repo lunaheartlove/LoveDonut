@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Day!</title>
+
+    <!-- ฟอนต์ Mali -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(#D85564, white);
+            font-family: 'Mali', cursive;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .gift {
+            width: 300px;
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.6s ease;
+        }
+
+        .opened .gift {
+            animation: bounceGift 0.9s ease-out forwards;
+        }
+
+
+        .open-btn {
+            padding: 12px 28px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            background: #F85151;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Mali', cursive;
+        }
+
+        .open-btn:hover {
+            background: #F85151;
+            transform: scale(1.05);
+        }
+
+        .opened .open-btn {
+            display: none;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #444444;
+        }
+
+        .santa-bg {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 520px;
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ให้กล่องอยู่ด้านบนซานต้า */
+        .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes bounceGift {
+            0% {
+                transform: scale(1) translateY(0);
+            }
+
+            30% {
+                transform: scale(1.05) translateY(-25px);
+            }
+
+            55% {
+                transform: scale(0.98) translateY(0);
+            }
+
+            75% {
+                transform: scale(1.02) translateY(-10px);
+            }
+
+            100% {
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* ===============================
+   📱 มือถือเล็กมาก (≤360px)
+   =============================== */
+        @media (max-width: 360px) {
+            .gift {
+                width: 220px;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .open-btn {
+                padding: 10px 22px;
+                font-size: 0.9rem;
+            }
+
+            .santa-bg {
+                width: 360px;
+            }
+        }
+
+        /* ===============================
+   📱 มือถือทั่วไป (361–480px)
+   =============================== */
+        @media (min-width: 361px) and (max-width: 480px) {
+            .gift {
+                width: 250px;
+            }
+
+            p {
+                font-size: 1.05rem;
+            }
+
+            .santa-bg {
+                width: 420px;
+            }
+        }
+
+        /* ===============================
+   📱 จอเล็ก–แท็บเล็ตเล็ก (481–599px)
+   =============================== */
+        @media (min-width: 481px) and (max-width: 599px) {
+            .gift {
+                width: 270px;
+            }
+
+            p {
+                font-size: 1.1rem;
+            }
+
+            .santa-bg {
+                width: 480px;
+            }
+        }
+
+        /* ===============================
+   📱 แท็บเล็ต (600–1024px)
+   =============================== */
+        @media (min-width: 600px) and (max-width: 1024px) {
+            .gift {
+                width: 300px;
+            }
+
+            p {
+                font-size: 1.15rem;
+            }
+
+            .santa-bg {
+                width: 560px;
+            }
+        }
+
+        /* ===============================
+   📱 แนวนอน (มือถือหมุนจอ)
+   =============================== */
+        @media (orientation: landscape) and (max-height: 420px) {
+            body {
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+
+            .gift {
+                width: 200px;
+            }
+
+            .santa-bg {
+                width: 300px;
+                opacity: 0.08;
+            }
+        }
+
+        /* ===============================
+   ♿ ลด motion (เพื่อ accessibility)
+   =============================== */
+        @media (prefers-reduced-motion: reduce) {
+            .gift {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* ===============================
+   💻 Desktop ใหญ่ (≥1025px)
+   =============================== */
+        @media (min-width: 1025px) {
+            .gift {
+                width: 320px;
+            }
+
+            p {
+                font-size: 1.25rem;
+            }
+
+            .santa-bg {
+                width: 600px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <img src="img/2.png" alt="Santa" class="santa-bg">
+    <div class="container" id="box">
+
+        <img src="img/gift11.png" alt="Gift Box" class="gift">
+
+        <p>Merry Christmas</p>
+
+        <button class="open-btn" onclick="openGift()">
+            เปิดกล่อง
+        </button>
+
+    </div>
+
+    <script>
+        function openGift() {
+            document.getElementById('box').classList.add('opened');
+
+            setTimeout(() => {
+                window.location.href = "foryou.html";
+            }, 1000);
+        }
+    </script>
+
+</body>
+
+</html>

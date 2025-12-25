@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Letter</title>
+
+    <!-- ฟอนต์ Mali -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(#D85564, white);
+            font-family: 'Mali', cursive;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ===== Snowman background ===== */
+        .snowman {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 260px;
+            opacity: 0.5;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===== การ์ดจดหมาย ===== */
+        .letter-card {
+            background: #fff;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 16px;
+            padding: 30px 24px 26px;
+
+            border-radius: 30px;
+            box-shadow:
+                0 24px 48px rgba(0, 0, 0, 0.18),
+                inset 0 0 0 3px #F7D1DB;
+
+            position: relative;
+            z-index: 1;
+        }
+
+        /* การ์ดซ้อน */
+        .letter-card::after {
+            content: "";
+            position: absolute;
+            inset: -8px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 34px;
+            z-index: -1;
+        }
+
+        /* หัวข้อ */
+        .title {
+            text-align: center;
+            font-size: 1.55rem;
+            color: #D85564;
+            margin-bottom: 20px;
+        }
+
+        /* เนื้อจดหมาย */
+        .letter {
+            font-size: 1rem;
+            color: #444;
+            line-height: 1.85;
+        }
+
+        /* เส้นแบ่ง */
+        .divider {
+            margin: 22px 0;
+            border-top: 2px dashed #F3AFC1;
+        }
+
+        /* ลายเซ็น */
+        .signature {
+            margin-top: 16px;
+            text-align: right;
+            font-weight: 500;
+            color: #555;
+        }
+
+        /* ปุ่มกลับ */
+        .menu-btn {
+            margin-top: 28px;
+            padding: 10px 28px;
+            font-size: 0.95rem;
+            border: none;
+            border-radius: 30px;
+            background: #F85151;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            font-family: 'Mali', cursive;
+
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* ===== หิมะตก ===== */
+        .snow {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            user-select: none;
+            pointer-events: none;
+            z-index: 3;
+            animation: fall linear;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh);
+                opacity: 0.3;
+            }
+        }
+
+        /* =========================
+           📱 MOBILE FIX (สำคัญ)
+        ========================= */
+        @media (max-width: 480px) {
+            body {
+                align-items: flex-start;
+                padding-top: 24px;
+                padding-bottom: 24px;
+            }
+
+            .snowman {
+                width: 160px;
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .letter-card {
+                margin-top: 16px;
+                margin-bottom: 16px;
+                padding: 24px 20px 22px;
+            }
+
+            .title {
+                font-size: 1.4rem;
+            }
+
+            .letter {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* 🎥 ลด motion ถ้าระบบร้องขอ */
+        @media (prefers-reduced-motion: reduce) {
+            .snow {
+                animation: none;
+            }
+
+            .menu-btn:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ☃️ Snowman -->
+    <img src="img/snow.png" alt="Snowman" class="snowman">
+
+    <div class="letter-card">
+
+        <div class="title">จดหมายถึงคนน่ารัก</div>
+
+        <div class="letter">
+            Hello Babe….<br><br>
+
+            ᯓᰔ..สุขสันต์วันคริสต์มาสนะคะ !! เบ๊บ•♡⸝⸝ เธอเป็นของขวัญที่ดีที่สุดในชีวิตเค้า
+            หวังว่าเธอจะมีคริสมาสที่เต็มไปด้วยความสุขและและรอยยิ้ม ⸝⸝> ̫ &lt;⸝⸝ •เค้าจะอยู่ข้างๆ เบ๊บเสมอไป• </div>
+
+        <div class="divider"></div>
+
+        <div class="letter">
+            𓏵•เค้ารู้สึกโชคดีมากที่ได้เจอเธอและได้มาคุยกันแบบนี้ เค้ามีความสุขมากเธอน่ารักมากเลยนะคะรู้ตัวไหม….
+        </div>
+
+        <div class="signature">
+            ด้วยรักจาก🐰<br><br>
+            ที่รักเบ๊บมากๆๆ
+        </div>
+
+        <button class="menu-btn" onclick="goMenu()">
+            กลับไปหน้าเมนู
+        </button>
+
+    </div>
+
+    <script>
+        function goMenu() {
+            window.location.href = "menu.html";
+        }
+
+        function createSnow() {
+            const snow = document.createElement("div");
+            snow.classList.add("snow");
+            snow.innerHTML = ["❄", "❅", "❆"][Math.floor(Math.random() * 3)];
+
+            snow.style.left = Math.random() * window.innerWidth + "px";
+            snow.style.fontSize = Math.random() * 10 + 10 + "px";
+            snow.style.animationDuration = Math.random() * 3 + 4 + "s";
+            snow.style.opacity = Math.random();
+
+            document.body.appendChild(snow);
+
+            setTimeout(() => snow.remove(), 8000);
+        }
+
+        setInterval(createSnow, 300);
+    </script>
+
+    <audio id="bgm" src="audio/christmas-440431.mp3" loop></audio>
+
+    <script>
+        const bgm = document.getElementById("bgm");
+        bgm.volume = 0.3;
+
+        if (localStorage.getItem("bgmPlayed")) {
+            bgm.play().catch(() => { });
+        }
+
+        document.addEventListener("click", () => {
+            bgm.play().then(() => {
+                localStorage.setItem("bgmPlayed", "true");
+            }).catch(() => { });
+        }, { once: true });
+    </script>
+
+</body>
+
+</html>

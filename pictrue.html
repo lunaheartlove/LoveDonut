@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Moments</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Mali&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Mali', cursive;
+            background: linear-gradient(#D85564, white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ===== สโนว์แมนพื้นหลัง ===== */
+        .snowman {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 260px;
+            opacity: 0.5;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===== กล่องหลัก ===== */
+        .wrapper {
+            z-index: 2;
+            width: 100%;
+            max-width: 560px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        /* ===== หัวข้อ ===== */
+        .title {
+            font-size: 1.6rem;
+            color: white;
+            margin-bottom: 18px;
+        }
+
+        /* ===== SLIDER ===== */
+        .slider-container {
+            width: 100%;
+            aspect-ratio: 1/1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 22px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            background: #fff;
+        }
+
+        .slides {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ปุ่มลูกศร */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            border: none;
+            background: rgba(216, 85, 100, 0.75);
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .arrow.prev {
+            left: 12px;
+        }
+
+        .arrow.next {
+            right: 12px;
+        }
+
+        /* จุดด้านล่าง */
+        .dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 999px;
+        }
+
+        .dot.active {
+            width: 20px;
+            background: #F85151;
+        }
+
+        /* ===== ปุ่มกลับ ===== */
+        .menu-btn {
+            margin-top: 26px;
+            padding: 10px 28px;
+            font-size: 0.95rem;
+            border: none;
+            border-radius: 30px;
+            background: #F85151;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Mali', cursive;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .snow {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            user-select: none;
+            pointer-events: none;
+            z-index: 3;
+            animation-name: fall;
+            animation-timing-function: linear;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh);
+                opacity: 0.3;
+            }
+        }
+
+        /* =========================
+   📱 มือถือเล็กมาก (≤360px)
+========================= */
+        @media (max-width: 360px) {
+            .wrapper {
+                padding: 16px;
+                max-width: 100%;
+            }
+
+            .title {
+                font-size: 1.3rem;
+            }
+
+            .slider-container {
+                border-radius: 16px;
+            }
+
+            .arrow {
+                width: 28px;
+                height: 28px;
+                font-size: 16px;
+            }
+
+            .menu-btn {
+                font-size: 0.85rem;
+                padding: 8px 22px;
+            }
+
+            .snowman {
+                width: 150px;
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+
+        /* =========================
+   📱 มือถือทั่วไป (361–480px)
+========================= */
+        @media (min-width: 361px) and (max-width: 480px) {
+            .wrapper {
+                padding: 18px;
+                max-width: 100%;
+            }
+
+            .title {
+                font-size: 1.45rem;
+            }
+
+            .arrow {
+                width: 30px;
+                height: 30px;
+                font-size: 18px;
+            }
+
+            .menu-btn {
+                font-size: 0.9rem;
+            }
+
+            .snowman {
+                width: 180px;
+            }
+        }
+
+        /* =========================
+   📱 แท็บเล็ตเล็ก / มือถือใหญ่ (481–599px)
+========================= */
+        @media (min-width: 481px) and (max-width: 599px) {
+            .wrapper {
+                max-width: 520px;
+            }
+
+            .title {
+                font-size: 1.55rem;
+            }
+
+            .snowman {
+                width: 220px;
+            }
+        }
+
+        /* =========================
+   💻 แท็บเล็ต (600–1024px)
+========================= */
+        @media (min-width: 600px) and (max-width: 1024px) {
+            .wrapper {
+                max-width: 600px;
+            }
+
+            .title {
+                font-size: 1.7rem;
+            }
+
+            .arrow {
+                width: 36px;
+                height: 36px;
+                font-size: 20px;
+            }
+
+            .snowman {
+                width: 260px;
+            }
+        }
+
+        /* =========================
+   📱 แนวนอน (Landscape มือถือ)
+========================= */
+        @media (orientation: landscape) and (max-height: 420px) {
+            body {
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+
+            .wrapper {
+                padding: 16px;
+            }
+
+            .slider-container {
+                aspect-ratio: 16 / 9;
+            }
+
+            .menu-btn {
+                margin-top: 18px;
+            }
+        }
+
+        /* =========================
+   ♿ ลด animation (Accessibility)
+========================= */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* =========================
+   🖥️ Desktop ใหญ่ (≥1025px)
+========================= */
+        @media (min-width: 1025px) {
+            .wrapper {
+                max-width: 640px;
+            }
+
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .snowman {
+                width: 280px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ❄️ สโนว์แมน (PNG พื้นหลังใส) -->
+    <img src="img/snow.png" alt="snowman" class="snowman">
+
+    <div class="wrapper">
+
+        <div class="slider-container">
+            <div class="slides">
+                <div class="slide"><img src="img/image01.png" alt=""></div>
+                <div class="slide"><img src="img/image02.png" alt=""></div>
+                <div class="slide"><img src="img/image04.jpeg" alt=""></div>
+                <div class="slide"><img src="img/image03.png" alt=""></div>
+                <div class="slide"><img src="img/image05.jpeg" alt=""></div>
+            </div>
+
+            <button class="arrow prev">&#10094;</button>
+            <button class="arrow next">&#10095;</button>
+
+            <div class="dots"></div>
+        </div>
+
+        <button class="menu-btn" onclick="goMenu()">
+            กลับไปหน้าเมนู
+        </button>
+
+    </div>
+
+    <script>
+        const slidesContainer = document.querySelector('.slides');
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.querySelector('.arrow.prev');
+        const nextBtn = document.querySelector('.arrow.next');
+        const dotsContainer = document.querySelector('.dots');
+
+        let currentIndex = 0;
+        let autoPlayDelay = 4000;
+        let timer;
+
+        slides.forEach((_, i) => {
+            const dot = document.createElement("div");
+            dot.classList.add("dot");
+            if (i === 0) dot.classList.add("active");
+            dot.dataset.index = i;
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateSlide() {
+            slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[currentIndex].classList.add("active");
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateSlide();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateSlide();
+        }
+
+        function startAuto() {
+            clearInterval(timer);
+            timer = setInterval(nextSlide, autoPlayDelay);
+        }
+
+        prevBtn.onclick = () => { prevSlide(); startAuto(); };
+        nextBtn.onclick = () => { nextSlide(); startAuto(); };
+
+        dots.forEach(dot => {
+            dot.onclick = () => {
+                currentIndex = Number(dot.dataset.index);
+                updateSlide();
+                startAuto();
+            };
+        });
+
+        startAuto();
+
+        function goMenu() {
+            window.location.href = "menu.html";
+        }
+    </script>
+
+    <script>
+        function createSnow() {
+            const snow = document.createElement("div");
+            snow.classList.add("snow");
+            snow.innerHTML = ["❄", "❅", "❆"][Math.floor(Math.random() * 3)];
+
+            snow.style.left = Math.random() * window.innerWidth + "px";
+            snow.style.fontSize = Math.random() * 10 + 10 + "px";
+            snow.style.animationDuration = Math.random() * 3 + 4 + "s";
+            snow.style.opacity = Math.random();
+
+            document.body.appendChild(snow);
+
+            setTimeout(() => {
+                snow.remove();
+            }, 8000);
+        }
+
+        setInterval(createSnow, 300);
+    </script>
+
+    <audio id="bgm" src="audio/christmas-440431.mp3" loop></audio>
+
+    <script>
+        const bgm = document.getElementById("bgm");
+        bgm.volume = 0.3;
+
+        if (localStorage.getItem("bgmPlayed")) {
+            bgm.play().catch(() => { });
+        }
+
+        document.addEventListener("click", () => {
+            bgm.play().then(() => {
+                localStorage.setItem("bgmPlayed", "true");
+            }).catch(() => { });
+        }, { once: true });
+    </script>
+
+</body>
+
+</html>
